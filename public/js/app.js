@@ -89,3 +89,51 @@ function fixPassword(password) {
 function isEmailTaken(email) {
     return database.some(user => user.email === email);
 }
+
+function signUp() {
+    let name, email, age, password, passwordConfirmed;
+    while (true) {
+        name = prompt("Entrez votre nom complet :");
+        name = fullName(name);
+        if (name !== null) break;
+        alert("Nom invalide. Veuillez réessayer.");
+    }
+
+    while (true) {
+        email = prompt("Entrez votre email :");
+        email = validMail(email);
+        if (email !== null && !isEmailTaken(email)) break;
+        alert("Email invalide ou déjà enregistre dans notre BDD. Veuillez réessayer.");
+    }
+
+    while (true) {
+        age = prompt("Entrez votre age :");
+        age = validAge(age);
+        if (age !== null) break;
+        alert("Age invalide. Veuillez réessayer.");
+    }
+
+    while (true) {
+        password = prompt("Entrez votre mot de passe :");
+        password = fixPassword(password);
+        if (password === null) {
+            alert("Mot de passe invalide. Veuillez réessayer.");
+            return; 
+        }
+        
+        passwordConfirmed = prompt("Confirmez votre mot de passe :").trim();
+        if (password === passwordConfirmed) {
+            break;
+        } else {
+            alert("Les mots de passe ne correspondent pas. Réessayez depuis le début.");
+            return; 
+        }
+    }
+
+    let user = new User(name, email, age, password);
+    database.push(user);
+    console.table(database)
+    alert("Inscription réussie !");
+}
+
+action();
