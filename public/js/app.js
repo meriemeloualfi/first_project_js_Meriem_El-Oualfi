@@ -71,3 +71,21 @@ function validAge(age) {
     return parseInt(age, 10);
 }
 
+function fixPassword(password) {
+    if (!password) return null;
+    
+    password = password.trim();
+    if (password.length < 7) {
+        return null;
+    }
+
+    let specialCharacters = ["@", "#", "-", "+", "*", "/"];
+    if (!specialCharacters.some(char => password.includes(char))) {
+        return null;
+    }
+    return password;
+}
+
+function isEmailTaken(email) {
+    return database.some(user => user.email === email);
+}
