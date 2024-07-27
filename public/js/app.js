@@ -1,11 +1,12 @@
 let database = [];
 
 class User {
-  constructor(name, email, age, password) {
+  constructor(name, email, age, password,balance) {
     this.name = name;
     this.email = email;
     this.age = age;
     this.password = password;
+    this.balance = balance
   }
 }
 let meriem = new User("Meriem El Oualfi", "meriem@gmail.com", 22, "mery17#");
@@ -160,6 +161,23 @@ function login() {
     } else {
         alert("Email non trouvé.");
     }
+}
+function changePassword() {
+    let email = prompt("Entrez votre email :");
+    let user = database.find(user => user.email === email);
+    if (user) {
+       
+        let newPassword = prompt("Entrez votre nouveau mot de passe :");
+        if (fixPassword(newPassword)) {
+            user.password = newPassword;
+            alert("Mot de passe est changé avec succès !!!!!!!!");
+        } else {
+            alert("Le nouveau mot de passe n'a  pas respecter rules.");
+        }
+    } else {
+        alert("Email non trouvé.");
+    }
+    console.table(database)
 }
 
 
