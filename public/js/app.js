@@ -135,5 +135,35 @@ function signUp() {
     console.table(database)
     alert("Inscription réussie !");
 }
+function login() {
+    let email = prompt("Entrez votre email :");
+    let user = database.find(user => user.email === email);
+    if (user) {
+        let maxEessai = 3; 
+        let essai = 0;  
+        while (essai < maxEessai) {
+            let password = prompt("Entrez votre mot de passe :");
+            if (password === user.password) {
+                alert("Connexion réussie !");
+                return;
+            } else {
+                essai++;
+                let reste = maxEessai - essai;
+                if (reste > 0) {
+                    alert(`Mot de passe incorrect. Vous avez ${reste} essai restant`);
+                } else {
+                    alert("Mot de passe incorrect. Vous avez utilisé tous vos essai");
+                    return; 
+                }
+            }
+        }
+    } else {
+        alert("Email non trouvé.");
+    }
+}
+
+
 
 action();
+
+
